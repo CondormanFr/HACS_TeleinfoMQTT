@@ -26,7 +26,7 @@ class TeleinfoEntityManager:
 
     async def async_init(self):
         # Add status entity immediately so something appears
-        await self._async_add([self.status_entity])
+        self.async_add_entities([self.status_entity])
         # Listen to incoming frames
         self.entry.async_on_unload(self.hass.bus.async_listen(EVT_FRAME, self._handle_frame))
 
@@ -77,11 +77,11 @@ class TeleinfoEntityManager:
             ent = TeleinfoSensor(uid, name, unit, device_class, device_info)
             self.entities[uid] = ent
             # Add entity now
-            self.hass.async_create_task(self._async_add([ent]))
+            self.async_add_entities([ent])
         ent.set_native_value(value)
 
-    async def _async_add(self, new: List[SensorEntity]):
-        await self.async_add_entities(new)
+    def _async_add(self, new: List[SensorEntity]):
+        self.async_add_entities(new)
 
 class TeleinfoStatusSensor(SensorEntity):
     _attr_has_entity_name = True
