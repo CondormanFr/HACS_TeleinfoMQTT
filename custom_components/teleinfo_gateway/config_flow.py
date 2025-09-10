@@ -5,12 +5,17 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
+from homeassistant.helpers import selector
 
 from .const import (
     DOMAIN, DEFAULT_PORT, DEFAULT_BAUD, DEFAULT_BYTESIZE, DEFAULT_PARITY, DEFAULT_STOPBITS, DEFAULT_TIMEOUT, DEFAULT_DECODE, DEFAULT_RELAXED,
     OPT_MQTT_ENABLE, OPT_MQTT_TOPIC_LINE, OPT_MQTT_TOPIC_JSON, OPT_MQTT_TOPIC_FIELDS, OPT_MQTT_TOPIC_INVALID, OPT_MQTT_TOPIC_DERIVED,
     OPT_HA_DISCOVERY, OPT_HA_DISCOVERY_PREFIX, OPT_HA_DEVICE_NAME, OPT_INCLUDE_WH,
 )
+
+RELAX_CHOICES = [
+    "PTEC", "ADCO", "BASE", "HCHC", "HCHP", "PAPP", "IINST", "IMAX", "ISOUSC"
+]
 
 SERIAL_SCHEMA = vol.Schema({
     vol.Required("port", default=DEFAULT_PORT): str,
@@ -20,7 +25,9 @@ SERIAL_SCHEMA = vol.Schema({
     vol.Required("stopbits", default=DEFAULT_STOPBITS): vol.In([1,2]),
     vol.Optional("timeout", default=DEFAULT_TIMEOUT): float,
     vol.Optional("decode", default=DEFAULT_DECODE): str,
-    vol.Optional("relaxed_labels", default=DEFAULT_RELAXED): [str],
+    vol.Optional("relaxed_labels", default=DEFAULT_RELAXED): selector.SelectSelector(
+        selector.SelectSelectorConfig(options=RELAX_CHOICES, multiple=True, mode="list")
+    ),
 })
 
 OPTIONS_SCHEMA = vol.Schema({
