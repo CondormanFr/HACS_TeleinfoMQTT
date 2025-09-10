@@ -1,0 +1,19 @@
+
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "T\u00e9l\u00e9info \u2014 Port s\u00e9rie",
+        "description": "Configurer le port s\u00e9rie Linky (TIC historique)."
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Options MQTT & Discovery",
+        "description": "Param\u00e9trer le mirroring MQTT et la publication des topics Home Assistant Discovery."
+      }
+    }
+  }
+}
