@@ -52,8 +52,9 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             return self.async_create_entry(title="Téléinfo Gateway", data=user_input)
         return self.async_show_form(step_id="user", data_schema=SERIAL_SCHEMA)
 
+    @staticmethod
     @callback
-    def async_get_options_flow(self, config_entry):
+    def async_get_options_flow(config_entry):
         return OptionsFlowHandler(config_entry)
 
 class OptionsFlowHandler(config_entries.OptionsFlow):
