@@ -214,8 +214,15 @@ class TeleinfoSession:
         return ("Inconnu", "UNK", "mdi:clock-alert")
 
     async def publish_mqtt(self, topic: str, payload: str, retain: bool=False):
-        mqtt = self.hass.components.mqtt
-        await mqtt.async_publish(topic, payload, qos=0, retain=retain)
+        try:
+            from homeassistant.components import mqtt
+        except Exception:
+            _LOGGER.debug("MQTT component not available; drop %s", topic)
+            return
+        try:
+            await mqtt.async_publish(self.hass, topic, payload, qos=0, retain=retain)
+        except Exception as e:
+            _LOGGER.warning("MQTT publish failed for %s: %s", topic, e)
 
     async def publish_discovery(self, adco: str, present: set):
         dev = {
