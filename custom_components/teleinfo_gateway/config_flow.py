@@ -19,11 +19,11 @@ RELAX_CHOICES = [
 
 SERIAL_SCHEMA = vol.Schema({
     vol.Required("port", default=DEFAULT_PORT): str,
-    vol.Required("baud", default=DEFAULT_BAUD): int,
+    vol.Required("baud", default=DEFAULT_BAUD): vol.Coerce(int),
     vol.Required("bytesize", default=DEFAULT_BYTESIZE): vol.In([7,8]),
     vol.Required("parity", default=DEFAULT_PARITY): vol.In(["E", "N"]),
     vol.Required("stopbits", default=DEFAULT_STOPBITS): vol.In([1,2]),
-    vol.Optional("timeout", default=DEFAULT_TIMEOUT): float,
+    vol.Optional("timeout", default=DEFAULT_TIMEOUT): vol.Coerce(float),
     vol.Optional("decode", default=DEFAULT_DECODE): str,
     vol.Optional("relaxed_labels", default=DEFAULT_RELAXED): selector.SelectSelector(
         selector.SelectSelectorConfig(options=RELAX_CHOICES, multiple=True, mode="list")
