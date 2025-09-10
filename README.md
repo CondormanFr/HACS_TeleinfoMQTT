@@ -2,7 +2,8 @@
 # Téléinfo Gateway (HA custom integration)
 
 - Lit la Téléinfo sur un port série (1200 7E1 par défaut)
-- Crée des entités natives (PAPP, IINST, IMAX, index en kWh)
+- Crée des entités natives (PAPP, IINST, IMAX, index en kWh) **après réception de la première trame**
+- Ajoute un capteur **Statut Téléinfo** qui compte les trames (utile pour diagnostiquer)
 - **Optionnel :** publie sur MQTT (`teleinfo/line`, `/json`, `/fields`, `/invalid`, `/derived`)
 - **Optionnel :** publie les topics **MQTT Discovery** pour autodécouverte côté HA
 
