@@ -1,13 +1,16 @@
 {
   "domain": "teleinfo_gateway",
   "name": "Téléinfo Gateway",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "documentation": "https://github.com/<user>/<repo>#readme",
   "issue_tracker": "https://github.com/<user>/<repo>/issues",
   "requirements": [
-    "pyserial-asyncio==0.6"
+    "pyserial-asyncio==0.6",
+    "pyserial>=3.5"
   ],
   "codeowners": [
     "@<your-github>"
-  ]
+  ],
+  "config_flow": true,
+  "iot_class": "local_push"
 }

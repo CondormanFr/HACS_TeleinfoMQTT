@@ -318,7 +318,7 @@ class _TeleinfoProto(asyncio.Protocol):
                             if not ok and self.sess.mqtt_enable:
                                 inv = {
                                     "label": label,
-                                    "raw": raw.strip("\\r\\n"),
+                                    "raw": raw.strip("\r\n"),
                                     "hex": " ".join(f"{ord(c):02X}" for c in raw),
                                 }
                                 asyncio.create_task(self.sess.publish_mqtt(self.sess.topic_invalid, json.dumps(inv, ensure_ascii=False)))
@@ -358,7 +358,7 @@ class _TeleinfoProto(asyncio.Protocol):
                     line = ""
                 if line:
                     if self.sess.mqtt_enable:
-                        asyncio.create_task(self.sess.publish_mqtt(self.sess.topic_line, line.strip("\\r\\n")))
+                        asyncio.create_task(self.sess.publish_mqtt(self.sess.topic_line, line.strip("\r\n")))
                     if self.in_frame:
                         self.frame_lines.append(line)
                 else:
